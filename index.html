@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Touch Hover Tracking Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <script src="touchHoverTracking.js"></script>
+    <style>
+        #one {
+            width: 400px;
+            height: 400px;
+            background: #333;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #one:hover:not(.touch_hover) {
+            background: #F0F;
+        }
+
+        #two {
+            width: 300px;
+            height: 300px;
+            background: #666;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #two:hover:not(.touch_hover) {
+            background: #0FF;
+        }
+
+        #three {
+            width: 200px;
+            height: 200px;
+            background: #999;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #three:hover:not(.touch_hover) {
+            background: #FF0;
+        }
+
+    </style>
+</head>
+<body>
+        <div id="one">
+            <div id="two">
+                <div id="three">
+                </div>
+            </div>
+        </div>
+</body>
+</html>
