@@ -4,8 +4,8 @@
 	
 	var touchstartHandler = function(evt){
 		removeItems = trackedItems.slice();
-		trackedItems = [];
-		markTrackItems(evt.target);
+		trackedItems = getTrackedItems(evt.target);
+		markTrackItems(trackedItems);
 	}
 	
 	var touchendHandler = function(evt){
@@ -18,9 +18,10 @@
 		removeItems = trackedItems.slice();
 		trackedItems = [];
 		if(evt.pointerType === "touch"){
-			markTrackItems(evt.target);
+			trackedItems = getTrackedItems(evt.target);
+			markTrackItems(trackedItems);
 		}else{
-			unmarkItems(removeItems, trackedItems);
+			unmarkItems(removeItems, trackedItems, true);
 		}
 	};
 	var pointeroutHandler = function(evt){
@@ -30,18 +31,21 @@
 			});
 		});
 	};
-	var markTrackItems = function(node){
-		trackedItems.push(node);
-		trackedItems = Array.prototype.concat(trackedItems, getAllAncestors(node));
+	var getTrackedItems = function(node){
+		trackItems = [node];
+		trackItems = Array.prototype.concat(trackItems, getAllAncestors(node));
+		return trackItems;
+	}
+	var markTrackItems = function(trackedItems){
 		trackedItems.forEach(function(item){
 			item.classList.add('touch_hover');
 			});
 	}
-	var unmarkItems = function(dirtyItems, tracked){
+	var unmarkItems = function(dirtyItems, tracked,  dontWaitForPaint){
 		var cbOnStack = false;
 		dirtyItems.forEach(function(item){
 			if(! tracked.includes(item)){
-				if(!item.matches || !item.matches(':hover')){
+				if(dontWaitForPaint || !item.matches || !item.matches(':hover')){
 					item.classList.remove('touch_hover');
 				}else if(!cbOnStack){
 					console.log(item);
